@@ -2,4 +2,4 @@
 set -e
 
 python3 setup.py develop
-python3 runapp.p
+python3 runapp.py
