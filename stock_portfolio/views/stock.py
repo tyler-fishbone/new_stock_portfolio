@@ -95,7 +95,7 @@ def get_portfolio_symbol_view(request):
     try:
         stock = request.matchdict['symbol']
     except (IndexError, KeyError):
-        raise HTTPNotFound()
+        return HTTPNotFound()
 
     try:
         query = request.dbsession.query(Stock)
@@ -103,7 +103,7 @@ def get_portfolio_symbol_view(request):
         stock_detail = query.filter(Stock.account_id == request.authenticated_userid).filter(Stock.symbol == stock).one_or_none()
     
         if stock_detail is None:
-            raise HTTPNotFound()
+            return HTTPNotFound()
 
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)

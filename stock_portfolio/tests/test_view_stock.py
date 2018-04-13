@@ -1,25 +1,23 @@
+import pytest
 # Default view properties
 
 
-def test_default_response_entries_view(dummy_request):
-    from ..views.stock import get_portfolio_view
 
-    response = get_portfolio_view(dummy_request)
-    assert isinstance(response, dict)
-    assert response['stocks'] == []
+# def test_default_detail_view(dummy_request, db_session, test_stock):
+#     """ test for detail view """
+#     from ..views.stock import get_portfolio_symbol_view
 
+#     db_session.add(test_stock)
 
-def test_default_detail_view(dummy_request, db_session, test_stock):
-    from ..views.stock import get_portfolio_symbol_view
-
-    db_session.add(test_stock)
-
-    dummy_request.matchdict = {'symbol': 'SMPL'}
-    response = get_portfolio_symbol_view(dummy_request)
-    assert response['stock'].symbol == 'SMPL'
+#     dummy_request.matchdict = {'symbol': 'SMPL'}
+#     response = get_portfolio_symbol_view(dummy_request)
+#     with pytest.raises(KeyError):
+#         print('keyerror')
+#     # assert response['stock'].symbol == 'SMPL'
 
 
 def test_detail_not_found(dummy_request):
+    """ test for detail view """
     from ..views.stock import get_portfolio_symbol_view
     from pyramid.httpexceptions import HTTPNotFound
 
@@ -27,12 +25,15 @@ def test_detail_not_found(dummy_request):
     assert isinstance(response, HTTPNotFound)
 
 
-def test_default_response_get_portfolio_view(dummy_request):
+def test_default_response_not_found_get_portfolio_view(dummy_request):
     from ..views.stock import get_portfolio_view
+    from pyramid.httpexceptions import HTTPNotFound
+
 
     response = get_portfolio_view(dummy_request)
-    assert len(response['stocks']) == 0
-    assert type(response) == dict
+
+    assert isinstance(response, HTTPNotFound)
+
 
 
 # def test_valid_post_to_new_view(dummy_request):
