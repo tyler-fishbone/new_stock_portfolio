@@ -1,0 +1,49 @@
+{% extends "base.jinja2" %}
+
+
+{% block content %}
+
+<form id="stock-search-form" action="{{request.route_url('stock')}}" method="GET">
+    <legend></legend>
+    <fieldset>
+        <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+        <input type="text" name="symbol" placeholder="Search stocks here with ticker e.g. MSFT">
+        <button type="submit">Search</button>
+    </fieldset>
+</form>
+
+
+{% if company %}
+<h3>Symbol: {{company.symbol}}</h3>
+<h3>Company Name: {{company.companyName}}</h3>
+<h3>Exchange: {{company.exchange}}</h3>
+<h3>Industry: {{company.industry}}</h3>
+<h3>Website: <a href="{{company.website}}">{{company.website}}</a></h3>
+<h3>Description:</h3>
+<p>{{company.description}}</p>
+<h3>CEO: {{company.CEO}}</h3>
+<h3>issueType: {{company.issueType}}</h3>
+<h3>sector: {{company.sector}}</h3>
+
+
+<form id='stock-add-form'action="{{request.route_url('portfolio')}}" method="POST">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <input type="hidden" name="symbol" value="{{company.symbol}}">
+
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
+    <input type="text" name="companyName" value="{{company.companyName}}" hidden required readonly>
+    <input type="text" name="symbol" value="{{company.symbol}}" hidden required readonly>
+    <input type="text" name="exchange" value="{{company.exchange}}" hidden readonly>
+    <input type="text" name="website" value="{{company.website}}" hidden readonly>
+    <input type="text" name="CEO" value="{{company.CEO}}" hidden readonly>
+    <input type="text" name="industry" value="{{company.industry}}" hidden readonly>
+    <input type="text" name="sector" value="{{company.sector}}" hidden readonly>
+    <input type="text" name="issueType" value="{{company.issueType}}" hidden readonly>
+    <input type="text" name="description" value="{{company.description}}" hidden readonly>
+
+
+    <button type="submit">Add to Portfolio</button>
+</form>
+{% endif %}
+
+{% endblock content %}
