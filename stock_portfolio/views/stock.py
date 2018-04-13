@@ -108,5 +108,4 @@ def get_portfolio_symbol_view(request):
     except DBAPIError:
         return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
 
-
     return {'stock' : stock_detail}
