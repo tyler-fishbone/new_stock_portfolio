@@ -41,7 +41,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
     ],
-    author='Tyler FIshbone',
+    author='Tyler Fishbone',
     author_email='tyler.fishbone@gmail.com',
     url='https://github.com/tyler-fishbone',
     keywords='web pyramid pylons stock portfolio ticker',
